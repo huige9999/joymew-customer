@@ -1,0 +1,132 @@
+//全局变量
+@activityMarginRight: 33px;
+
+
+//水平垂直居中
+.hvCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+//水平居中
+.hCenter {
+  display: flex;
+  justify-content: center;
+}
+
+//垂直居中
+.vCenter {
+  display: flex;
+  align-items: center;
+}
+//水平两边布局
+.hSide{
+  display: flex;
+  justify-content: space-between;
+}
+//水平四周布局
+.hAround{
+  display: flex;
+  justify-content: space-around;
+}
+//水平四周布局 垂直居中
+.hvAroundCenter{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+//水平四周布局
+//水平两边布局、垂直居中
+.hvSideCenter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+//水平偏右、垂直居中
+.hvRightCenter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+//多个子元素 水平垂直居中
+.multiHvCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+//多个子元素 水平偏左、垂直居中
+.multiHvLeftCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+//多个子元素 水平居中、垂直两边布局
+.multiHvCenterSide {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+//多个子元素 水平居中
+.multiHCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+//多个子元素 水平偏右
+.multiHRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+//多个子元素 水平偏左
+.multiHLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+//左对齐
+.align-left{
+  text-align: left;
+}
+
+// 右对齐
+.align-right{
+  text-align: right;
+}
+
+// 底部分页
+.my-pagination{
+  width: 100%;
+  margin-bottom: 14px;
+  margin-top: auto;
+  .hvCenter();
+}
+
+// 垂直居中
+.vAbsoluteCenter{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+// 蓝色文字
+.blue-text{
+  color: #1e87f0;
+}
+
+.blue-background{
+  background-color: #1e87f0;
+  color: #FFFFFF;
+}

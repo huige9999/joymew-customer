@@ -1,0 +1,32 @@
+/*
+Write your variables here. All available variables can be
+found in element-ui/packages/theme-chalk/src/common/var.scss.
+For example, to overwrite the theme color:
+*/
+// $--color-primary: teal;
+
+/* icon font path, required */
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+.el-menu{
+	border-right: none;
+}
+/*菜单关闭*/
+.el-submenu>.el-submenu__title .el-submenu__icon-arrow{
+	transform: rotateZ(-90deg); 
+}
+/*菜单展开*/
+.el-submenu.is-opened>.el-submenu__title .el-submenu__icon-arrow{
+	transform: rotateZ(0deg); 
+}
+
+[class^="el-icon-joymew"],
+[class*="el-icon-joymew"] {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

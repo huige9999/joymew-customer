@@ -1,0 +1,14 @@
+{
+  "bundles": {
+    "music-463": {
+      "name": "music",
+      "created": "2025-06-24T08:14:08.438Z",
+      "lastUsed": "2025-06-24T08:15:04.709Z",
+      "tags": [],
+      "files": [
+        "package.json",
+        "src/router/activity/activityInfo.js"
+      ]
+    }
+  }
+}

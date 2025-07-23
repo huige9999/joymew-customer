@@ -1,0 +1,612 @@
+// 活动时间线
+@green: #15C15A;
+@orange: #EC850F;
+@gray: #A5A5A5;
+@rose: #EA267F;
+@red: #EC0F0F;
+@brow: #E6B650;
+
+.activity-timeLine::v-deep {
+  padding-left: 17px;
+  padding-right: @activityMarginRight;
+  padding-top: 10px;
+  flex: 1 1 auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .el-timeline-item {
+    .el-timeline-item__tail {
+      border-left: 1px solid #e4e7ed;
+    }
+
+    .el-timeline-item__wrapper {
+      padding-left: 16px;
+    }
+
+    .el-timeline-item__timestamp.is-top {
+      line-height: 18px;
+      height: 18px;
+      font-size: 13px;
+      margin-bottom: 12px;
+      padding-top: 0;
+
+      //日期之后的描述符
+      &:after {
+        content: '';
+        font-size: 12px;
+        width: 38px;
+        height: 15px;
+        padding: 2px 8px;
+        border-radius: 2px;
+        line-height: 15px;
+        margin-left: 6px;
+      }
+
+      &:before {
+        content: '';
+        display: block;
+      }
+    }
+
+    //左侧圆点
+    .el-timeline-item__node--normal {
+      left: 0;
+      width: 9px;
+      height: 9px;
+    }
+
+    // 三种样式
+    &.in_progress {
+      .el-timeline-item__node--normal {
+        background-color: @green;
+      }
+
+      .el-timeline-item__timestamp.is-top {
+        &::after {
+          content: '进行中';
+          border: 1px solid @green;
+          color: @green;
+        }
+      }
+    }
+
+    &.not_start {
+      .el-timeline-item__node--normal {
+        background-color: @orange;
+      }
+
+      .el-timeline-item__timestamp.is-top {
+        &:after {
+          content: '未开始';
+          border: 1px solid @orange;
+          color: @orange;
+        }
+      }
+    }
+
+    &.finished {
+      .el-timeline-item__node--normal {
+        background-color: @gray;
+      }
+
+      .el-timeline-item__timestamp.is-top {
+        &:after {
+          content: '已结束';
+          border: 1px solid @gray;
+          color: @gray;
+        }
+      }
+    }
+
+    &.Wedding_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '婚礼版';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: @rose;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/weeding_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.Meeting_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '年会版';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: @red;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/meeting_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.Birthday_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '生日版';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: @brow;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/birthday_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.BBY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '宝宝宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #a564e4;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/birthday_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.SY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '寿宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #a564e4;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/birthday_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.CRL_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '成人礼';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #a564e4;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/birthday_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.BLY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '百露宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #a564e4;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/birthday_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.MMY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '满月宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #a564e4;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/birthday_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.YSY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '圆锁宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #a564e4;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/birthday_type.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.BYDL_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '毕业礼';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #f9ac30;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/schoolIcon.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.XSY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '谢师宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #f9ac30;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/schoolIcon.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.JBTM_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '金榜题名';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #f9ac30;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/schoolIcon.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.TXH_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '同学会';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #55cf87;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/otherIcon.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.QQY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '乔迁宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #55cf87;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/otherIcon.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.HX_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '会销';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #55cf87;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/otherIcon.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.DHY_plus {
+      .el-timeline-item__timestamp.is-top {
+        &::before {
+          content: '订婚宴';
+          width: 75px;
+          height: 22px;
+          text-align: center;
+          line-height: 22px;
+          border-radius: 2px;
+          background-color: #55cf87;
+          color: #fff;
+          display: inline-block;
+          position: absolute;
+          left: 26%;
+          background-image: url("../image/icon/otherIcon.png");
+          background-size: 16px 16px;
+          background-repeat: no-repeat;
+          background-position: 1px;
+          background-position-x: 2px;
+          padding-left: 15px;
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    &.lunch {
+      .el-timeline-item__wrapper {
+        &:after {
+          content: '午宴';
+          border: 1px solid #ebbc6b;
+          color: #ebbc6b;
+          font-size: 12px;
+          width: 38px;
+          height: 15px;
+          padding: 2px 8px;
+          border-radius: 2px;
+          line-height: 15px;
+          position: absolute;
+          left: 100px;
+          top: 0;
+          text-align: center;
+        }
+      }
+
+      .el-timeline-item__timestamp.is-top {
+        &:after {
+          position: absolute;
+          left: 173px;
+          margin-left: 0;
+        }
+      }
+    }
+
+    &.evening {
+      .el-timeline-item__wrapper {
+        &:after {
+          content: '晚宴';
+          border: 1px solid #470886;
+          color: #470886;
+          font-size: 12px;
+          width: 38px;
+          height: 15px;
+          padding: 2px 8px;
+          border-radius: 2px;
+          line-height: 15px;
+          position: absolute;
+          left: 100px;
+          top: 0;
+          text-align: center;
+        }
+      }
+
+      .el-timeline-item__timestamp.is-top {
+        &:after {
+          position: absolute;
+          left: 173px;
+          margin-left: 0;
+        }
+      }
+    }
+
+    &.weixin {
+      .el-timeline-item__wrapper {
+        &:before {
+          content: '微信';
+          border: 1px solid #28C445;
+          background-color: rgba(40, 196, 69, 0.10);
+          background-image: url('../image/icon/activity/weixin.png');
+          background-size: 14px 14px;
+          background-repeat: no-repeat;
+          background-position-y: 2px;
+          background-position-x: 8px;
+          color: #28C445;
+          font-size: 12px;
+          width: 38px;
+          height: 15px;
+          padding: 2px 4px;
+          padding-left: 18px;
+          border-radius: 2px;
+          line-height: 15px;
+          position: absolute;
+          left: 244px;
+          top: 0;
+          text-align: center;
+        }
+      }
+    }
+
+    &.dy {
+      .el-timeline-item__wrapper {
+        &:before {
+          content: '抖音';
+          background-color: rgba(255, 0, 79, 0.10);
+          background-image: url('../image/icon/activity/douyin.png');
+          background-size: 14px 14px;
+          background-repeat: no-repeat;
+          background-position-y: 2px;
+          background-position-x: 8px;
+          border: 1px solid #FF004F;
+          color: #FF004F;
+          font-size: 12px;
+          width: 38px;
+          height: 15px;
+          padding: 2px 4px;
+          padding-left: 18px;
+          border-radius: 2px;
+          line-height: 15px;
+          position: absolute;
+          left: 244px;
+          top: 0;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
