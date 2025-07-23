@@ -296,4 +296,15 @@ export default [
       parentIndex: '2',
     },
   },
+  {
+    path: 'moneyShakeTree',
+    name: 'moneyShakeTree',
+    component: () => import('@/views/activityViews/gamesSetting/moneyShakeTree/index'),
+    meta: {
+      index: '22',
+      title: '摇钱树',
+      icon: 'el-icon-joymew-shake',
+      parentIndex: '2',
+    },
+  },
 ];

@@ -44,6 +44,17 @@ export async function reqUpdateShoutHbData(danmu) {
 }
 
 /**
+ * 摇钱树更新
+ * @param {String} data json字符串
+ */
+export async function reqUpdateMoneyShakeTreeData(data) {
+  return await request.post('/qianDaoYu/updateHanHbJson', {
+    money_tree_json: data,
+    splid: store.state.liveId,
+  });
+}
+
+/**
  * 生成数字
  */
 export const reqGenerateNumber = (rangeList) => {

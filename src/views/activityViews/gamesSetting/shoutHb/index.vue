@@ -48,43 +48,12 @@ import { reqShouHbData, reqUpdateShoutHbData } from '@/api/gameSetting/index.js'
 import CardTopInfo from '@/components/cardTopInfo';
 import MainCard from '@/components/mainCard';
 import SubPage from '@/components/subPage';
-/**
- * 服务端数据转表单数据
- */
-const serverDataToFormData = (data) => {
-  if (!data) {
-    return this.formData;
-  }
-  try {
-    const tmpObj = JSON.parse(data);
-    return {
-      danmu1: tmpObj.rightText.split('_')[0] || '',
-      danmu2: tmpObj.rightText.split('_')[1] || '',
-      danmu3: tmpObj.rightText.split('_')[2] || '',
-    };
-  } catch (err) {
-    return this.formData;
-  }
-};
-
-/**
- * 表单数据转服务端需要的数据
- */
-const formDataToServerData = (formData) => {
-  const tmpStr = Object.values(formData)
-    .filter((item) => item)
-    .join('_');
-  const tmpObj = {
-    rightText: tmpStr,
-  };
-  return JSON.stringify(tmpObj);
-};
 
 export default {
   async created() {
     const hhb = await reqShouHbData();
     console.log('>>>>', hhb);
-    this.formData = serverDataToFormData(hhb);
+    this.formData = this.serverDataToFormData(hhb);
   },
   data() {
     return {
@@ -101,6 +70,30 @@ export default {
     CardTopInfo,
   },
   methods: {
+    serverDataToFormData(data) {
+      if (!data) {
+        return this.formData;
+      }
+      try {
+        const tmpObj = JSON.parse(data);
+        return {
+          danmu1: tmpObj.rightText.split('_')[0] || '',
+          danmu2: tmpObj.rightText.split('_')[1] || '',
+          danmu3: tmpObj.rightText.split('_')[2] || '',
+        };
+      } catch (err) {
+        return this.formData;
+      }
+    },
+    formDataToServerData(formData) {
+      const tmpStr = Object.values(formData)
+        .filter((item) => item)
+        .join('_');
+      const tmpObj = {
+        rightText: tmpStr,
+      };
+      return JSON.stringify(tmpObj);
+    },
     save() {
       if (!(this.formData.danmu1 || this.formData.danmu2 || this.formData.danmu3)) {
         this.$message.error('请至少填写一个完整的弹幕内容');
@@ -111,7 +104,7 @@ export default {
         return;
       }
 
-      reqUpdateShoutHbData(formDataToServerData(this.formData)).then(() => {
+      reqUpdateShoutHbData(this.formDataToServerData(this.formData)).then(() => {
         this.$message.success('保存成功');
       });
     },

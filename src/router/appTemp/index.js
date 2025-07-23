@@ -400,11 +400,22 @@ export default [
         },
       },
       {
+        path: 'moneyShakeTree',
+        name: 'MoneyShakeTree',
+        component: () => import('@/views/activityViews/gamesSetting/moneyShakeTree/index'),
+        meta: {
+          appTempIndex: '37',
+          title: '摇钱树设置',
+          icon: 'el-icon-joymew-shake',
+          hidden: true,
+        },
+      },
+      {
         path: 'curtainCall',
         name: 'CurtainCall',
         component: () => import('@/views/activityViews/activityInfo/curtainCall'),
         meta: {
-          appTempIndex: '37',
+          appTempIndex: '38',
           title: '谢幕设置',
           icon: 'el-icon-joymew-cunchufangshijieshu',
           hidden: true,
