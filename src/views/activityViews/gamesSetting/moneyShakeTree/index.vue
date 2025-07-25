@@ -51,7 +51,7 @@
                   <span style="color: #dd0000">游戏时间</span>
                 </div>
                 <div class="time-setting">
-                  <el-input-number v-model="gameTime" :min="50" :max="300" controls-position="right"
+                  <el-input-number v-model="gameTime" :min="5" :max="120" controls-position="right"
                     size="small"></el-input-number>
                   <span class="unit">秒</span>
                 </div>
