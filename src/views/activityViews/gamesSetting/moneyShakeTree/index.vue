@@ -76,15 +76,15 @@
         <div class="prize-setting">
           <el-card class="box-card" shadow="hover">
             <div slot="header" class="clearfix">
-              <span style="color: #dd0000">奖金设置: (金额只能为整数)</span>
+              <span style="color: #dd0000">奖金设置: (金额支持小数点后两位)</span>
             </div>
             <div class="prize-list">
               <el-row :gutter="20">
                 <el-col :span="8" v-for="(prize, index) in prizeList" :key="index">
                   <div class="prize-item">
                     <span class="rank-label">第{{ index + 1 }}名:</span>
-                    <el-input-number v-model="prize.amount" :min="0" :max="10000" :precision="0" :step="1"
-                      controls-position="right" size="small" placeholder="0"></el-input-number>
+                    <el-input-number v-model="prize.amount" :min="0" :max="10000" :precision="2" :step="0.01"
+                      controls-position="right" size="small" placeholder="0.00"></el-input-number>
                     <span class="unit">元</span>
                   </div>
                 </el-col>
@@ -188,14 +188,16 @@ export default {
      * @return {Number}
      */
     gameIssuanceAmount() {
-      // 计算方式: 奖金设置各项金额的累计和 (金额为整数)
+      // 计算方式: 奖金设置各项金额的累计和 (支持两位小数)
       if (!this.prizeList || this.prizeList.length === 0) {
         return 0;
       }
-      return this.prizeList.reduce((total, prize) => {
-        const amount = parseInt(prize.amount, 10) || 0;
-        return total + amount;
+      // 为避免浮点数精度问题，将金额转为分再进行计算
+      const totalInCents = this.prizeList.reduce((total, prize) => {
+        const amount = parseFloat(prize.amount) || 0;
+        return total + Math.round(amount * 100);
       }, 0);
+      return totalInCents / 100;
     },
     /**
      * @description: 剩余可发放金额 (业务规则 1)
@@ -247,7 +249,8 @@ export default {
                 if (Object.prototype.hasOwnProperty.call(config, rankKey)) {
                   // 确保 prizeList[i] 存在（handleWinnerCountChange 应该已处理）
                   if (this.prizeList[i] !== undefined) {
-                    this.prizeList[i].amount = parseInt(config[rankKey], 10) || 0;
+                    // 使用 parseFloat 解析可能带小数的金额
+                    this.prizeList[i].amount = parseFloat(config[rankKey]) || 0;
                   }
                 }
               }
@@ -335,7 +338,8 @@ export default {
         this.$message.error('游戏发放总金额已超出可用于游戏的金额，请调整！');
         return;
       }
-      const isAnyAmountZero = this.prizeList.some((prize) => (parseInt(prize.amount, 10) || 0) <= 0);
+      // 校验金额必须大于0
+      const isAnyAmountZero = this.prizeList.some((prize) => (parseFloat(prize.amount) || 0) <= 0);
       if (isAnyAmountZero) {
         this.$message.error('每一名的奖金金额必须大于0，请调整！');
         return;
@@ -345,10 +349,10 @@ export default {
         size: this.winnerCount.toString(),
         time: this.gameTime.toString(),
       };
-      // 添加排名奖金 (金额为整数)
+      // 添加排名奖金 (金额转为含两位小数的字符串)
       for (let i = 0; i < this.winnerCount; i++) {
-        const amount = parseInt(this.prizeList[i]?.amount, 10) || 0;
-        settingsData[`rank${i + 1}`] = amount.toString();
+        const amount = parseFloat(this.prizeList[i]?.amount) || 0;
+        settingsData[`rank${i + 1}`] = amount.toFixed(2);
       }
       // 转换为JSON字符串
       const jsonString = JSON.stringify(settingsData);
