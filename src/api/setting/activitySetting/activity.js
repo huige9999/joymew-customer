@@ -37,6 +37,7 @@ export const editActivityInfo = ({
   is_forbid_send = '', // 自定义文本内容
   hbkd_str = '', // 自定义红包口袋充值模板
   identity_switch = '', // 是否开启男女方亲友设置
+  newcomer_json = '', // 新人信息
 }) => {
   // 根据函数参数传值情况生成paramData的值
   const paramData = {
@@ -66,6 +67,7 @@ export const editActivityInfo = ({
     is_forbid_send,
     hbkd_str,
     identity_switch,
+    newcomer_json,
   };
   const tmpParamMapKeys = Object.keys(tmpParamMap);
   tmpParamMapKeys.forEach((paramMapKey) => {

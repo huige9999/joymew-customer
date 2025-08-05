@@ -77,6 +77,28 @@
         <el-form-item label="活动地点" prop="address" style="margin-bottom: 18px">
           <el-input v-model="createForm.address" placeholder="请输入活动地点" size="mini"></el-input>
         </el-form-item>
+        <el-form-item label="新人信息(可选)" v-if="createForm.type === '0'">
+          <div style="display: flex; align-items: center">
+            <el-input
+              v-model="createForm.newcomer_info.name"
+              placeholder="姓名"
+              size="mini"
+              style="width: 100px; margin-right: 10px"
+            ></el-input>
+            <el-input
+              v-model="createForm.newcomer_info.phone"
+              placeholder="手机号码"
+              size="mini"
+              style="width: 120px; margin-right: 10px"
+            ></el-input>
+            <div class="introduce-box">
+              <i class="el-icon-question question-icon"></i>
+              <div class="para" style="width: 200px">
+                便于在新人结婚周年纪念时提醒您赠送暖心祝福
+              </div>
+            </div>
+          </div>
+        </el-form-item>
         <el-form-item label="关键字" prop="key_word" style="margin-bottom: 18px" v-if="is_show_keyword === '1'">
           <el-input v-model="createForm.key_word" placeholder="请输入关键字" size="mini"></el-input>
         </el-form-item>
@@ -289,6 +311,10 @@ export default {
         title: '',
         date: '',
         type: '0',
+        newcomer_info: {
+          name: '',
+          phone: '',
+        },
         isSendSystemGift: '0',
         isNeedUserComment: '1',
         is_help_hm: '0',
@@ -578,6 +604,9 @@ export default {
             is_close_coin: form.is_close_coin,
             dy_appid: '',
           };
+          if (form.type === '0' && form.newcomer_info.phone) {
+            params.newcomer_json = JSON.stringify(form.newcomer_info);
+          }
           if (params.kind === '2' && this.dy_appid) {
             params.dy_appid = this.dy_appid;
           }
@@ -605,6 +634,7 @@ export default {
                 this.createForm.address = '';
                 this.createForm.phone_zfb = '';
                 this.createForm.key_word = '';
+                this.createForm.newcomer_info = { name: '', phone: '' };
 
                 this.$confirm('活动创建成功,是否跳转到设置页面', '提示', {
                   confirmButtonText: '确认',
@@ -1083,35 +1113,6 @@ export default {
     span {
       margin-right: 10px;
     }
-    .introduce-box {
-      margin-left: 10px;
-      position: relative;
-      cursor: pointer;
-      .question-icon {
-        color: #1890ff;
-      }
-      .para {
-        width: 165px;
-        padding: 10px;
-        background-color: #fff;
-        border-radius: 4px;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
-        font-size: 11px;
-        border: 1px solid #ebeef5;
-        color: #606266;
-        position: absolute;
-        top: -42px;
-        left: 0px;
-        line-height: 1.8;
-        z-index: 9999;
-        display: none;
-      }
-      &:hover {
-        .para {
-          display: block;
-        }
-      }
-    }
     .detail-label {
       margin-left: 10px;
       position: relative;
@@ -1119,15 +1120,36 @@ export default {
       color: #409eff;
       font-size: 11px;
     }
-    // &:nth-child(2) {
-    // &::after {
-    //   content: '';
-    //   display: block;
-    // }
-    // .question-icon {
-    //   color: #1890ff;
-    // }
-    // }
+  }
+}
+
+.introduce-box {
+  margin-left: 10px;
+  position: relative;
+  cursor: pointer;
+  .question-icon {
+    color: #1890ff;
+  }
+  .para {
+    width: 165px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+    font-size: 11px;
+    border: 1px solid #ebeef5;
+    color: #606266;
+    position: absolute;
+    top: -42px;
+    left: 0px;
+    line-height: 1.8;
+    z-index: 9999;
+    display: none;
+  }
+  &:hover {
+    .para {
+      display: block;
+    }
   }
 }
 

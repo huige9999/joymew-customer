@@ -91,6 +91,33 @@
                   ></el-input>
                 </el-form-item>
                 <el-form-item
+                  label="新人信息"
+                  v-if="sceneType === '0'"
+                >
+                  <div style="display: flex; align-items: center">
+                    <el-input
+                      v-model="createForm.newcomer_info.name"
+                      placeholder="姓名"
+                      style="width: 150px; margin-right: 10px"
+                      @change="handleNewcomerInfoChange"
+                    ></el-input>
+                    <el-input
+                      v-model="createForm.newcomer_info.phone"
+                      placeholder="手机号码"
+                      style="width: 120px; margin-right: 10px"
+                      @change="handleNewcomerInfoChange"
+                    ></el-input>
+                    <div class="introduce-box">
+                      <i
+                        class="el-icon-question"
+                      ></i>
+                      <div class="para" style="width: 200px">
+                        便于在新人结婚周年纪念时提醒您赠送暖心祝福
+                      </div>
+                    </div>
+                  </div>
+                </el-form-item>
+                <el-form-item
                   label="关键字"
                   prop="key_word"
                   style="margin-bottom: 18px"
@@ -439,7 +466,6 @@ import SubPage from '@/components/subPage';
 import bindHostNew from '@/views/homeViews/myActivity/create/components/bindHostNew.vue';
 import { mapState } from 'vuex';
 import giftToHbkdProportionSet from './components/giftToHbkdProportionSet.vue';
-
 let bindTimer = null;
 const macUrl = 'https://ustatic.joymew.com/browsers/googlechromeSetupMacos.dmg';
 const osUrl = 'https://ustatic.joymew.com/browsers/ChromeStandaloneSetup64.exe';
@@ -482,6 +508,10 @@ export default {
         type: '0',
         name: '',
         address: '',
+        newcomer_info: {
+          name: '',
+          phone: '',
+        },
         phone_zfb: '',
         selector: '0',
         isSendSystemGift: '0',
@@ -624,6 +654,16 @@ export default {
         this.createForm.is_test_game = info.is_test_game;
         this.createForm.isSendSystemGift = info.isSendSystemGift;
         this.createForm.isNeedUserComment = info.isNeedUserComment;
+        if (info.newcomer_json) {
+          try {
+            const newcomerInfo = JSON.parse(info.newcomer_json);
+            if (typeof newcomerInfo === 'object' && newcomerInfo !== null) {
+              this.createForm.newcomer_info = newcomerInfo;
+            }
+          } catch (e) {
+            console.error('Failed to parse newcomer_json', e);
+          }
+        }
         this.createForm.is_help_hm = info.is_help_hm;
         this.createForm.hui_suo_switch = info.hui_suo_switch;
         this.createForm.is_end_wedding = info.is_end_wedding;
@@ -692,6 +732,11 @@ export default {
       this.createForm.emceeName = e;
       this.updateFormInfo({
         emcee_name: this.createForm.emceeName,
+      });
+    },
+    handleNewcomerInfoChange() {
+      this.updateFormInfo({
+        newcomer_json: JSON.stringify(this.createForm.newcomer_info),
       });
     },
     handleFontcolorChange() {
@@ -1158,6 +1203,37 @@ export default {
       .i-img {
         display: block;
       }
+    }
+  }
+}
+.introduce-box {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  .el-icon-question {
+    color: #1890ff;
+  }
+  .para {
+    display: none;
+    white-space: normal;
+    width: 165px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.2);
+    font-size: 11px;
+    border: 1px solid #ebeef5;
+    color: #606266;
+    position: absolute;
+    top: -42px;
+    left: 0px;
+    line-height: 1.8;
+    z-index: 9999;
+  }
+  &:hover {
+    .para {
+      display: block;
     }
   }
 }
