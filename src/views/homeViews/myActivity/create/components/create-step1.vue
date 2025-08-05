@@ -20,30 +20,20 @@
         <el-form-item label="活动类型" prop="type">
           <div class="activityTypeWrap">
             <div class="mainTypeList">
-              <div
-                class="mainCardItem"
-                :class="[
-                  item.className,
-                  {
-                    active: createForm.type === item.value || item.value.split(';').indexOf(createForm.type) > -1,
-                  },
-                ]"
-                v-for="(item, index) in activityTypeList"
-                :key="item.value"
-                @click="chooseActivityType(item.value, index)"
-              >
+              <div class="mainCardItem" :class="[
+                item.className,
+                {
+                  active: createForm.type === item.value || item.value.split(';').indexOf(createForm.type) > -1,
+                },
+              ]" v-for="(item, index) in activityTypeList" :key="item.value"
+                @click="chooseActivityType(item.value, index)">
                 <img :src="item.icon" class="typeIcon" />
                 {{ item.name }}
               </div>
             </div>
             <div class="subTypeList" v-show="subTypeVisible" :class="activeTypeName">
-              <div
-                class="subCardItem"
-                :class="{ active: createForm.type === item.value }"
-                v-for="item in activitySubTypeList"
-                :key="item.value"
-                @click="chooseActivitySubType(item.value)"
-              >
+              <div class="subCardItem" :class="{ active: createForm.type === item.value }"
+                v-for="item in activitySubTypeList" :key="item.value" @click="chooseActivitySubType(item.value)">
                 {{ item.name }}
               </div>
             </div>
@@ -54,23 +44,13 @@
         </el-form-item>
         <el-form-item label="活动时间">
           <el-form-item prop="date">
-            <el-date-picker
-              type="date"
-              placeholder="请选择活动日期"
-              v-model="createForm.date"
-              size="mini"
-              style="width: 100%"
-              :picker-options="pickerOptions"
-            ></el-date-picker>
+            <el-date-picker type="date" placeholder="请选择活动日期" v-model="createForm.date" size="mini" style="width: 100%"
+              :picker-options="pickerOptions"></el-date-picker>
           </el-form-item>
         </el-form-item>
         <el-form-item label="活动时段" prop="activeScheduleId">
-          <el-select
-            v-model="createForm.activeScheduleId"
-            placeholder="请选择活动时段"
-            @change="handleScheduleSelectChange"
-            class="templateConfig"
-          >
+          <el-select v-model="createForm.activeScheduleId" placeholder="请选择活动时段" @change="handleScheduleSelectChange"
+            class="templateConfig">
             <el-option v-for="item in scheduleList" :key="item.id" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
@@ -79,18 +59,10 @@
         </el-form-item>
         <el-form-item label="新人信息(可选)" v-if="createForm.type === '0'">
           <div style="display: flex; align-items: center">
-            <el-input
-              v-model="createForm.newcomer_info.name"
-              placeholder="姓名"
-              size="mini"
-              style="width: 100px; margin-right: 10px"
-            ></el-input>
-            <el-input
-              v-model="createForm.newcomer_info.phone"
-              placeholder="手机号码"
-              size="mini"
-              style="width: 120px; margin-right: 10px"
-            ></el-input>
+            <el-input v-model="createForm.newcomer_info.name" placeholder="姓名" size="mini"
+              style="width: 100px; margin-right: 10px"></el-input>
+            <el-input v-model="createForm.newcomer_info.phone" placeholder="手机号码" size="mini"
+              style="width: 120px; margin-right: 10px"></el-input>
             <div class="introduce-box">
               <i class="el-icon-question question-icon"></i>
               <div class="para" style="width: 200px">
@@ -108,7 +80,8 @@
         <div class="switch-wrap">
           <div class="switch-item" v-if="!isNewUser">
             <span>礼物进红包口袋</span>
-            <el-switch v-model="isGiftToHbkd" active-value="1" inactive-value="0" @change="handleGiftToHbkdChange"></el-switch>
+            <el-switch v-model="isGiftToHbkd" active-value="1" inactive-value="0"
+              @change="handleGiftToHbkdChange"></el-switch>
             <div class="introduce-box" v-if="isGiftToHbkd === '0'">
               <i class="el-icon-question question-icon"></i>
               <div class="para">
@@ -116,7 +89,8 @@
                 <p>礼物霸屏进入红包口袋的比例：50%-100%可选,默认开启后100%</p>
               </div>
             </div>
-            <div class="detail-label" v-else @click="openGiftToHbkdAndHbyRateSetting('giftToHbkd')">{{ giftToHbkdRateUI }}%</div>
+            <div class="detail-label" v-else @click="openGiftToHbkdAndHbyRateSetting('giftToHbkd')">{{ giftToHbkdRateUI
+              }}%</div>
           </div>
           <div class="switch-item">
             <span>来宾评价</span>
@@ -138,24 +112,16 @@
           </div>
         </el-form-item>
         <el-form-item label="互动配置" prop="activeTemplateId" v-if="templateList.length > 0">
-          <el-select
-            v-model="createForm.activeTemplateId"
-            placeholder="请选择互动配置模板"
-            @change="handleTemplateSelectChange"
-            class="templateConfig"
-          >
+          <el-select v-model="createForm.activeTemplateId" placeholder="请选择互动配置模板" @change="handleTemplateSelectChange"
+            class="templateConfig">
             <el-option v-for="item in templateList" :key="item.id" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="使用劵" v-if="couponList.length > 0">
           <div class="coupon-list">
-            <div
-              class="coupon-type-item"
-              @click="selectCoupon(item)"
-              :class="[{ active: couponIdChoosed === item.coupon_id }]"
-              v-for="item in couponList"
-              :key="item.coupon_id"
-            >
+            <div class="coupon-type-item" @click="selectCoupon(item)"
+              :class="[{ active: couponIdChoosed === item.coupon_id }]" v-for="item in couponList"
+              :key="item.coupon_id">
               <img :src="require('@/assets/image/coupon/coupon-type-selected.png')" alt="选中" class="i-img" />
               <img :src="item.img_url" alt="券" class="img" />
               <div class="size" v-if="Number(item.size) >= 0">x{{ item.size }}</div>
@@ -164,20 +130,16 @@
           <div class="coupon-tips">注： 劵与红包不可同时叠加使用</div>
         </el-form-item>
         <el-form-item>
-          <my-button type="primary" @click.native="submitForm('createForm')" height="29" width="67" v-loading="isLoading">
+          <my-button type="primary" @click.native="submitForm('createForm')" height="29" width="67"
+            v-loading="isLoading">
             立即创建
           </my-button>
         </el-form-item>
       </el-form>
     </div>
-    <giftToHbkdAndHbyRateSetting
-      v-if="giftToHbkdAndHbyRateSettingVisible"
-      :isGiftToHbkd="isGiftToHbkd"
-      :giftToHbkdRate="createForm.is_gift_to_hbkd"
-      :hbyRate="createForm.hby_kd_rate_val"
-      :type="giftToHbkdAndHbyRateSettingType"
-      @confirm="handleGiftToHbkdAndHbyRateSettingConfirm"
-    />
+    <giftToHbkdAndHbyRateSetting v-if="giftToHbkdAndHbyRateSettingVisible" :isGiftToHbkd="isGiftToHbkd"
+      :giftToHbkdRate="createForm.is_gift_to_hbkd" :hbyRate="createForm.hby_kd_rate_val"
+      :type="giftToHbkdAndHbyRateSettingType" @confirm="handleGiftToHbkdAndHbyRateSettingConfirm" />
   </div>
 </template>
 
@@ -580,6 +542,10 @@ export default {
             this.alertError('手机号格式错误!');
             return;
           }
+          if (form.type === '0' && form.newcomer_info.phone && form.newcomer_info.phone.length !== 11) {
+            this.alertError('新人手机号格式错误!');
+            return;
+          }
           const formatDate = `${form.date.getFullYear()}-${(form.date.getMonth() + 1).toString().padStart(2, '0')}-${form.date
             .getDate()
             .toString()
@@ -741,8 +707,8 @@ export default {
       }
 
       //取消显示左侧必填星号
-      .el-form-item.is-required:not(.is-no-asterisk) > .el-form-item__label:before,
-      .el-form-item.is-required:not(.is-no-asterisk) .el-form-item__label-wrap > .el-form-item__label:before {
+      .el-form-item.is-required:not(.is-no-asterisk)>.el-form-item__label:before,
+      .el-form-item.is-required:not(.is-no-asterisk) .el-form-item__label-wrap>.el-form-item__label:before {
         content: '';
         color: #f56c6c;
         margin-right: 0;
@@ -1043,16 +1009,19 @@ export default {
         }
       }
     }
+
     .rate-set-btn {
       cursor: pointer;
       color: #409eff;
       font-size: 11px;
+
       span {
         &:nth-child(2) {
           margin-left: 5px;
         }
       }
     }
+
     // .sendSystemGiftWrap {
     //   display: flex;
     //   align-items: center;
@@ -1106,13 +1075,16 @@ export default {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
+
   .switch-item {
     color: rgba(24, 17, 17, 0.85);
     display: flex;
     align-items: center;
+
     span {
       margin-right: 10px;
     }
+
     .detail-label {
       margin-left: 10px;
       position: relative;
@@ -1127,9 +1099,11 @@ export default {
   margin-left: 10px;
   position: relative;
   cursor: pointer;
+
   .question-icon {
     color: #1890ff;
   }
+
   .para {
     width: 165px;
     padding: 10px;
@@ -1146,6 +1120,7 @@ export default {
     z-index: 9999;
     display: none;
   }
+
   &:hover {
     .para {
       display: block;
@@ -1247,18 +1222,22 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     .applyPityImg {
       width: 412px;
       height: 307px;
     }
+
     .qrcodeImg {
       width: 307px;
       height: 307px;
     }
+
     .dyapplytip {
       font-size: 14px;
       font-weight: 400;
       color: #000000;
+
       label {
         color: #1890ff;
       }
@@ -1269,6 +1248,7 @@ export default {
       justify-content: center;
       align-items: center;
       margin-top: 70px;
+
       .closeBtn {
         font-size: 14px;
         font-weight: 400;

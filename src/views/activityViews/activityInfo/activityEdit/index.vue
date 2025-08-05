@@ -466,6 +466,7 @@ import SubPage from '@/components/subPage';
 import bindHostNew from '@/views/homeViews/myActivity/create/components/bindHostNew.vue';
 import { mapState } from 'vuex';
 import giftToHbkdProportionSet from './components/giftToHbkdProportionSet.vue';
+
 let bindTimer = null;
 const macUrl = 'https://ustatic.joymew.com/browsers/googlechromeSetupMacos.dmg';
 const osUrl = 'https://ustatic.joymew.com/browsers/ChromeStandaloneSetup64.exe';
@@ -735,6 +736,11 @@ export default {
       });
     },
     handleNewcomerInfoChange() {
+      const { phone } = this.createForm.newcomer_info;
+      if (phone && phone.length !== 11) {
+        this.$message.error('新人手机号格式错误!');
+        return;
+      }
       this.updateFormInfo({
         newcomer_json: JSON.stringify(this.createForm.newcomer_info),
       });
